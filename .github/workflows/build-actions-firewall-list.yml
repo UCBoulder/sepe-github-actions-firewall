@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v2
 
     - name: 'Obtain meta info from API and update file'
-      run: curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/meta | jq -r '.actions[]' >> $FIREWALL_FILE
+      run: 'curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/meta | jq -r ".actions[]" >> $FIREWALL_FILE'
       shell: bash
 
     - name: 'Commit any files changed'
