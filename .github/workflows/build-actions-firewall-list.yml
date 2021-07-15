@@ -1,6 +1,7 @@
 ---
 name: 'Import New Actions Firewall Exceptions'
 on:
+  workflow_dispatch:
   schedule:
     - cron: '17 2 * * 0'
 env:
