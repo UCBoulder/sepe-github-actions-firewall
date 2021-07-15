@@ -1,0 +1,1 @@
+This repository is simply to host an action that creates a flat file for firewall consumption of subnets that GitHub Actions can potentially use, allowing for dynamic loading of exceptions for actions to access internal resources.
