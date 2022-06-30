@@ -7,6 +7,8 @@ on:
 env:
   ACTIONS_FIREWALL_FILE: github-actions-subnets.txt
   HOOKS_FIREWALL_FILE: github-hooks-subnets.txt
+  ACTIONS_IPV4_FILE: github-actions-ipv4-only.txt
+  HOOKS_IPV4_FILE: github-hooks-ipv4-only.txt
 jobs:
   build_ip_list:
     runs-on: ubuntu-latest
@@ -21,6 +23,12 @@ jobs:
     - name: 'Obtain hooks meta info from API and update file'
       run: 'curl --silent -H "Accept: application/vnd.github.v3+json" https://api.github.com/meta | jq -r ".hooks[]" > $HOOKS_FIREWALL_FILE'
       shell: bash
+
+    - name: 'Create IPv4-only file for actions'
+      run: 'grep -v : "$ACTIONS_FIREWALL_FILE" > "$ACTIONS_IPV4_FILE"'
+
+    - name: 'Create IPv4-only file for hooks'
+      run: 'grep -v : "$HOOKS_FIREWALL_FILE" > "$HOOKS_IPV4_FILE"'
 
     - name: 'Commit any files changed'
       uses: stefanzweifel/git-auto-commit-action@v4
